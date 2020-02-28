@@ -40,11 +40,11 @@ Impletmented by me:
 
 "search.py":
 
-def depthFirstSearch(problem)
+	def depthFirstSearch(problem)
 
-def breadthFirstSearch(problem)
+	def breadthFirstSearch(problem)
 
-def aStarSearch(problem, heuristic=nullHeuristic)
+	def aStarSearch(problem, heuristic=nullHeuristic)
 
 "searchAgents.py":
 
@@ -56,4 +56,5 @@ class CornersProblem(search.SearchProblem):
 
 	def getSuccessors(self, state)
 
-def cornersHeuristic(state, problem)
+	
+	def cornersHeuristic(state, problem)
