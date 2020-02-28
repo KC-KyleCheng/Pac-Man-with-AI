@@ -34,3 +34,26 @@ python pacman.py -l mediumMaze -z .5 -p SearchAgent -a fn=astar,heuristic=manhat
 python pacman.py -l bigMaze -z .5 -p SearchAgent -a fn=astar,heuristic=manhattanHeuristic
 
 python pacman.py -l openMaze -z .5 -p SearchAgent -a fn=astar,heuristic=manhattanHeuristic
+
+
+Impletmented by me:
+
+"search.py":
+
+def depthFirstSearch(problem)
+
+def breadthFirstSearch(problem)
+
+def aStarSearch(problem, heuristic=nullHeuristic)
+
+"searchAgents.py":
+
+class CornersProblem(search.SearchProblem):
+
+	def getStartState(self)
+
+	def isGoalState(self, state)
+
+	def getSuccessors(self, state)
+
+def cornersHeuristic(state, problem)

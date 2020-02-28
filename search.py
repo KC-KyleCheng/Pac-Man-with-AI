@@ -78,25 +78,40 @@ def depthFirstSearch(problem):
     """
  
     from util import Stack
+
+    #initialize a stack with the starting set of successor nodes
     candidates = Stack()
     candidates.push([problem.getStartState(), [], 0])
-    visited = []
-    while True:
+    
+    #initialize an empty list to store visited nodes
+    visited = [] 
 
+    while True:
         if candidates.isEmpty():
+            #empty game -> print ERROR and exit
             print ("ERROR: stack is empty!")
             return []
-        node, path, cost = candidates.pop()
+        else:
+            #else get the node, path, and cost values
+            #from the candidates stack
+            node, path, cost = candidates.pop()
 
-        if node in visited: 
+        if node in visited:
+            #if the node has been visited, try a new node
             continue
+
+        #else mark the node as visited
         visited.append(node)        
 
         if problem.isGoalState(node):
+            #if goal has been reached, return its path
             return path
-        else:            
+        else:
+            #else push its sucessor nodes to the candidates stack
+            #with their state, total path, and total cost values           
             for state, move, distance in problem.getSuccessors(node):
-                candidates.push([state, path+[move], cost+distance])
+                if state not in visited:
+                    candidates.push([state, path+[move], cost+distance])
                
 
 def breadthFirstSearch(problem):
@@ -105,22 +120,37 @@ def breadthFirstSearch(problem):
     """
 
     from util import Queue
+
+    #initialize a queue with the starting set of successor nodes
     candidates = Queue()
     candidates.push([problem.getStartState(), [], 0])
+
+    #initialize an empty list to store visited nodes
     visited = []
+
     while True:
         if candidates.isEmpty():
+            #empty game -> print ERROR and exit
             print ("ERROR: queue is empty!")
             return []
-        node, path, cost = candidates.pop()
+        else:
+            #else get the node, path, and cost values
+            #from the candidates stack
+            node, path, cost = candidates.pop()
 
-        if node in visited: 
+        if node in visited:
+            #if the node has been visited, try a new node 
             continue
+
+        #mark the node as visited    
         visited.append(node)        
 
         if problem.isGoalState(node):
+            #if goal has been reached, return its path
             return path
-        else:            
+        else:
+            #else push its sucessor nodes to the candidates queue
+            #with their state, total path, and total cost values                       
             for state, move, distance in problem.getSuccessors(node):
                 if state not in visited:
                     candidates.push([state, path+[move], cost+distance])
@@ -139,17 +169,21 @@ def aStarSearch(problem, heuristic=nullHeuristic):
     Search the node that has the lowest combined cost and heuristic first.
     """
     
-
-    from util import Queue
     candidates = []
-    candidates.append([problem.getStartState(), [], 0, heuristic(problem.getStartState(), problem)])
+    candidates.append([problem.getStartState(), [], 0,\
+        heuristic(problem.getStartState(), problem)])
+    
+    #initialize an empty list to store visited nodes
     visited = []
-    while True:
 
+    while True:
         if len(candidates) == 0:
+            #empty game -> print ERROR and exit
             print ("ERROR: candidates list is empty!")
             return []
 
+        #find the index with the lowest f(n)
+        #f(n) = total cost + heristic value
         lowest = candidates[0][2] + candidates[0][3]
         lowest_index = 0
         for i in range(len(candidates)):
@@ -157,17 +191,25 @@ def aStarSearch(problem, heuristic=nullHeuristic):
                 lowest = candidates[i][2] + candidates[i][3]
                 lowest_index = i
         
+        #get the values from the node with the lowest f(n)
         node, path, cost, manhattan = candidates.pop(lowest_index)
 
         if node in visited: 
+            #if the node has been visited, try a new node
             continue
+
+        #mark the node as visited    
         visited.append(node)        
 
         if problem.isGoalState(node):
+            #if goal has been reached, return its path
             return path
-        else:            
+        else:
+            #else push its sucessor nodes to the candidates queue
+            #with their state, total path, total cost, and heuristic values             
             for state, move, distance in problem.getSuccessors(node):
-                candidates.append([state, path+[move], cost+distance, heuristic(state, problem)])
+                candidates.append([state, path+[move], cost+distance, \
+                    heuristic(state, problem)])
 
 
 # Abbreviations
